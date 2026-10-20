@@ -23,4 +23,5 @@ const (
 	msgAlasanWajib      = "alasan penolakan wajib diisi"
 	msgStatusTidakBisa  = "perubahan status tidak diizinkan dari status saat ini"
 	msgAlasanPanjang    = "alasan maksimal 100 karakter"
+	msgTanggalWajib     = "tanggal wajib diisi dengan format YYYY-MM-DD yang valid"
 )

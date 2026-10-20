@@ -72,6 +72,8 @@ func NewHandler() http.Handler {
 	mux.HandleFunc("POST /peminjaman/{id}/tolak", s.tolakPeminjaman)
 	mux.HandleFunc("POST /peminjaman/{id}/selesaikan", s.selesaiPeminjaman)
 
+	mux.HandleFunc("GET /ringkasan", s.getRingkasan)
+
 	return mux
 }
 

@@ -16,4 +16,7 @@
 - [ ] Change request
 
 ## Yang belum selesai
-(Tulis jujur bagian mana yang belum berjalan.)
+
+Tidak semua bagian sempat di test (fitur tambahan)
+AI LOG
+PROSES.md
