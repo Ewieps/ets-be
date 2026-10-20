@@ -14,24 +14,26 @@ type sumberDayaInput struct {
 	Stok  *int    `json:"stok"`
 }
 
+// TODO: B4 - move semua error
+
 func validateSumberDaya(in sumberDayaInput) (SumberDaya, error) {
 	if in.Nama == nil || in.Jenis == nil || in.Stok == nil {
-		return SumberDaya{}, errors.New("nama, jenis, dan stok wajib ada")
+		return SumberDaya{}, errors.New(msgFieldSDWajib)
 	}
 	nama := strings.TrimSpace(*in.Nama)
 	jenis := strings.TrimSpace(*in.Jenis)
 
 	if nama == "" {
-		return SumberDaya{}, errors.New("nama tidak boleh kosong")
+		return SumberDaya{}, errors.New(msgNamaKosong)
 	}
 	if utf8.RuneCountInString(nama) > 50 {
-		return SumberDaya{}, errors.New("nama maksimal 50 karakter")
+		return SumberDaya{}, errors.New(msgNamaPanjang)
 	}
 	if jenis != "ruang" && jenis != "alat" {
-		return SumberDaya{}, errors.New(`jenis harus "ruang" atau "alat"`)
+		return SumberDaya{}, errors.New(msgJenisSalah)
 	}
 	if *in.Stok < 1 {
-		return SumberDaya{}, errors.New("stok minimal 1")
+		return SumberDaya{}, errors.New(msgStokMinimal)
 	}
 	return SumberDaya{Nama: nama, Jenis: jenis, Stok: *in.Stok}, nil
 }

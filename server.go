@@ -15,6 +15,10 @@ type SumberDaya struct {
 }
 
 type Peminjaman struct {
+	Status string `json:"status"`
+	Alasan string `json:"alasan,omitempty"`
+	// Persona
+
 	ID           int    `json:"id"`
 	SumberDayaID int    `json:"sumber_daya_id"`
 	Peminjam     string `json:"peminjam"`
@@ -22,7 +26,6 @@ type Peminjaman struct {
 	SlotMulai    int    `json:"slot_mulai"`
 	SlotSelesai  int    `json:"slot_selesai"`
 	Jumlah       int    `json:"jumlah"`
-	Status       string `json:"status"`
 }
 
 // Objek peminjaman:
@@ -62,6 +65,12 @@ func NewHandler() http.Handler {
 	mux.HandleFunc("POST /peminjaman", s.createPeminjaman)
 	mux.HandleFunc("GET /peminjaman", s.listPeminjaman)
 	mux.HandleFunc("GET /peminjaman/{id}", s.getPeminjaman)
+	mux.HandleFunc("PUT /peminjaman/{id}", s.updatePeminjaman)
+	mux.HandleFunc("DELETE /peminjaman/{id}", s.deletePeminjaman)
+
+	mux.HandleFunc("POST /peminjaman/{id}/setujui", s.setujuiPeminjaman)
+	mux.HandleFunc("POST /peminjaman/{id}/tolak", s.tolakPeminjaman)
+	mux.HandleFunc("POST /peminjaman/{id}/selesaikan", s.selesaiPeminjaman)
 
 	return mux
 }
@@ -85,6 +94,17 @@ func parseID(w http.ResponseWriter, r *http.Request) (int, bool) {
 		return 0, false
 	}
 	return id, true
+}
+
+func (s *server) cekBentrokLocked(p Peminjaman) bool {
+	for _, existing := range s.peminjaman {
+		if existing.SumberDayaID == p.SumberDayaID && existing.Tanggal == p.Tanggal {
+			if p.SlotMulai <= existing.SlotSelesai && p.SlotSelesai >= existing.SlotMulai {
+				return true
+			}
+		}
+	}
+	return false
 }
 
 // func (s *server) listSumberDaya(w http.ResponseWriter, r *http.Request) {

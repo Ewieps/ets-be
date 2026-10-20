@@ -25,17 +25,31 @@ type Peminjaman struct {
 	Jumlah       int    `json:"jumlah"`
 	Status       string `json:"status"`
 }
-
 Kemudian struct dipointer (untuk diakses handler)
+Kedua merupakan struct 
+
+type server struct {
+	mu         sync.Mutex
+	sumberDaya []SumberDaya
+	peminjaman []Peminjaman
+	next_SDID  int
+	next_PID   int
+}
+
+type errorBody struct {
+	Error string `json:"error"`
+}
+
+
 
 ## 3. Satu keputusan desain
 (Satu keputusan yang kamu ambil, pilihan lain yang kamu pertimbangkan, dan alasanmu memilih yang ini. Contoh: kenapa cek bentrok per slot, bukan per rentang.)
 
 ## 4. Bug atau kendala (minimal dua)
 ### Bug 1
-- Gejala:
-- Cara menemukan:
-- Penyebab dan solusi:
+- Gejala: test tidak ditemukan (racing-test)
+- Cara menemukan: melakukan go tesst
+- Penyebab dan solusi: 
 
 ### Bug 2
 - Gejala:
