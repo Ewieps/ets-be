@@ -17,6 +17,5 @@
 
 ## Yang belum selesai
 
-Tidak semua bagian sempat di test (fitur tambahan)
-AI LOG
-PROSES.md
+Tidak semua bagian sempat di test (fitur tambahan & error handling pada CR)
+test file 
